@@ -1,7 +1,13 @@
 # Taller ABC
 
-Este es un repositorio para el taller ABC de Generation Colombia.
+Grupo 2
 
-## Descripción
+- Maria Angel Guzman
+- Daniel Vega
+- Andres Diaz
+- Oscar Javier Moreno
+- Handry Moran
 
-Proyecto básico de JavaScript para el taller colaborativo.
+Planearción de tareas Trello:  https://trello.com/b/BoQKlb6D/abc-challenge
+
+Este es un repositorio para el taller ABC de Generation Colombia.  Proyecto básico de JavaScript para el taller colaborativo.
