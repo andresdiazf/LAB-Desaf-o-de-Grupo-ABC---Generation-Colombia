@@ -57,17 +57,17 @@ const letras = [
     {
         letra: "L",
         palabra: "Lobo",
-        imagen: './assets/img/lobo.png'
+        imagen: './assets/img/luna.png'
     },
     {
         letra: "M",
-        palabra: "Manzana",
-        imagen: './assets/img/manzana.png'
+        palabra: "Medusa",
+        imagen: './assets/img/medusa.png'
     },
     {
         letra: "N",
-        palabra: "Naranja",
-        imagen: './assets/img/naranja.png'
+        palabra: "nido",
+        imagen: './assets/img/nido.png'
     },
     {
         letra: "Ñ",
@@ -76,13 +76,13 @@ const letras = [
     },
     {
         letra: "O",
-        palabra: "Oso",
-        imagen: './assets/img/oso.png'
+        palabra: "Ojo",
+        imagen: './assets/img/ojo.png'
     },
     {
         letra: "P",
-        palabra: "Perro",
-        imagen: './assets/img/perro.png'
+        palabra: "Panda",
+        imagen: './assets/img/panda.png'
     },
     {
         letra: "Q",
@@ -91,8 +91,8 @@ const letras = [
     },
     {
         letra: "R",
-        palabra: "Rana",
-        imagen: './assets/img/rana.png'
+        palabra: "Ruby",
+        imagen: './assets/img/ruby.png'
     },
     {
         letra: "S",
@@ -101,18 +101,18 @@ const letras = [
     },
     {
         letra: "T",
-        palabra: "Tigre",
-        imagen: './assets/img/tigre.png'
+        palabra: "Tortuga",
+        imagen: './assets/img/tortuga.png'
     },
     {
         letra: "U",
-        palabra: "Uva",
-        imagen: './assets/img/uva.png'
+        palabra: "Unicornio",
+        imagen: './assets/img/unicornio.png'
     },
     {
         letra: "V",
-        palabra: "Vaca",
-        imagen: './assets/img/vaca.png'
+        palabra: "Volcan",
+        imagen: './assets/img/volcan.png'
     },
     {
         letra: "W",
@@ -126,51 +126,64 @@ const letras = [
     },
     {
         letra: "Y",
-        palabra: "Yunque",
-        imagen: './assets/img/yunque.png'
+        palabra: "Yate",
+        imagen: './assets/img/yate.png'
     },
     {
         letra: "Z",
-        palabra: "Zebra",
-        imagen: './assets/img/zebra.png'
+        palabra: "Zorro",
+        imagen: './assets/img/zorro.png'
     }
-    
+
 ]
 
-// Seleccionar elementos del DOM
-const contador = document.querySelector('.nav__text span');
+
+let contador = document.getElementById('contador');
 const tarjetas = document.querySelectorAll('.letters__card');
 const botonTodas = document.querySelector('.buttons-container__button:first-child');
 const botonVocales = document.querySelector('.buttons-container__button:last-child');
 
-// Set para letras vistas
-let letrasVistas = new Set();
 
-// Función para mostrar imagen
-function mostrarImagen(tarjeta, letra) {
-    const letraObj = letras.find(l => l.letra === letra);
-    if (letraObj && letraObj.imagen) {
-        tarjeta.style.backgroundImage = `url(${letraObj.imagen})`;
-        tarjeta.style.backgroundSize = 'cover';
-        tarjeta.style.backgroundPosition = 'center';
-        // Ocultar la letra o hacerla blanca
-        tarjeta.querySelector('.letters_letter').style.color = 'transparent';
-        // Incrementar contador si no vista
-        if (!letrasVistas.has(letra)) {
-            letrasVistas.add(letra);
-            contador.textContent = parseInt(contador.textContent) + 1;
-        }
+let letrasVistas = [];
+
+tarjetas.forEach(tarjeta => {
+    const letraElement = tarjeta.querySelector('.letters_letter');
+    if (!letraElement) return;
+
+    const letraa = letraElement.textContent.trim().toUpperCase();
+    const resultado = letras.find(item => item.letra === letraa);
+
+    if (resultado) {
+        tarjeta.innerHTML = `
+            <div class="card__inner">
+                <div class="card__front">
+                    <p class="letters_letter">${letraa}</p>
+                </div>
+                <div class="card__back">
+                    <img src="${resultado.imagen}" alt="${resultado.palabra}" class="card__image">
+                    <p class="card__word">${resultado.palabra}</p>
+                </div>
+            </div>
+        `;
     }
-}
 
-// Agregar event listeners a tarjetas
-t
+    tarjeta.addEventListener('click', () => {
+        tarjeta.classList.toggle('flipped');
 
-// Función para filtrar vocales
+        const cantidad = document.querySelectorAll('.flipped').length;
+        contador.textContent = cantidad;
+
+    });
+
+});
+
 function filtrarVocales() {
     const vocales = ['A', 'E', 'I', 'O', 'U'];
     tarjetas.forEach(tarjeta => {
-        const letra = tarjeta.querySelector('.letters_letter').textContent;
+        const frontLetter = tarjeta.querySelector('.card__front .letters_letter');
+        if (!frontLetter) return;
+
+        const letra = frontLetter.textContent.trim().toUpperCase();
         if (vocales.includes(letra)) {
             tarjeta.classList.remove('hidden');
         } else {
